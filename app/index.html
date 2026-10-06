@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ООП без спешки — Урок 1</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="?session=welcome"><svg class="brand-mark" viewBox="0 0 44 44" role="img" aria-label="Логотип курса: книга и фигурная скобка"><rect x="1" y="1" width="42" height="42" rx="12" class="mark-tile"/><path d="M10 12.5c4.8-1.6 8.8-.8 12 2.1v18c-3.2-2.9-7.2-3.7-12-2.1z" class="mark-page"/><path d="M34 12.5c-4.8-1.6-8.8-.8-12 2.1v18c3.2-2.9 7.2-3.7 12-2.1z" class="mark-page"/><path d="M29 17h3.2v4.2L29 22.8l3.2 1.6v4.1H29" class="mark-brace"/></svg><span class="brand-title">ООП <span>без спешки</span></span></a><span class="tagline">Курс для тех, кто начинает с нуля в ООП</span><div class="topbar-actions"><button id="theme-toggle" class="topbar-button" type="button" aria-pressed="false">Тёмная тема</button><button id="about-button" class="topbar-button" type="button">О проекте</button></div></header>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="label">ТВОЙ МАРШРУТ <span>3 недели</span></div>
+      <div class="progress-copy"><span>Пройдено</span><strong id="progress-label">0 из 6 встреч</strong></div>
+      <div class="progress" role="progressbar" aria-label="Прогресс встреч курса" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0"><span id="progress-fill"></span></div>
+      <nav>
+        <a class="home-link" data-session-link="welcome" href="?session=welcome">Начало курса</a>
+        <section><h3><b>01</b><span>Своя первая книга<small>Объекты и классы</small></span></h3><a data-session-link="lesson1" class="selected" href="?session=lesson1">Лекция 1. Первая книга</a><a data-session-link="practice1" href="?session=practice1">Практика 1. Две книги</a></section>
+        <section><h3><b>02</b><span>Мой список чтения<small>Объекты работают вместе</small></span></h3><a data-session-link="lesson2" href="?session=lesson2">Лекция 2. Книги в списке</a><a data-session-link="practice2" href="?session=practice2">Практика 2. Список чтения</a></section>
+        <section><h3><b>03</b><span>Разные виды чтения<small>Наследование и общий интерфейс</small></span></h3><a data-session-link="lesson3" href="?session=lesson3">Лекция 3. Общий способ</a><a data-session-link="practice3" href="?session=practice3">Практика 3. Книга и аудиокнига</a></section>
+      </nav>
+      <p class="sidebar-note">✳ Можно ошибаться, возвращаться к примеру и идти в своём темпе.</p>
+    </aside>
+    <main id="top">
+      <div class="crumb">ТВОЙ КУРС　/　НЕДЕЛЯ 1　/　УРОК 1</div>
+      <section id="lesson" class="intro">
+        <div class="eyebrow">● ПЕРВЫЙ ШАГ · 25–35 МИНУТ</div>
+        <h1>Давай заведём<br><em>первую книгу</em></h1>
+        <p class="lead">Начнём с простой задачи: как описать книгу в Python так, чтобы у каждой книги были свои данные. Опыта с ООП не нужно.</p>
+        <div class="goal"><b>◎　После урока ты сможешь</b><p>создать две книги и объяснить, почему они не путают свои названия и статус.</p></div>
+      </section>
+      <section class="lesson warmup">
+        <div class="kicker">01　 РАЗОГРЕВ БЕЗ ОЦЕНКИ <span>2 минуты</span></div><h2>Что уже знакомо?</h2>
+        <p>Посмотри на две строки. Ничего запускать не нужно — попробуй их прочитать.</p>
+        <pre><code>title = <i>"Дюна"</i>
+is_read = <b>False</b></code></pre>
+        <p><strong>Какие значения здесь записаны?</strong></p>
+        <div class="choices" role="group" aria-label="Ответ на разогрев">
+          <button data-warmup="correct">Название книги и отметка «ещё не прочитана»</button>
+          <button data-warmup="try">Два названия книг</button>
+          <button data-warmup="try">Пока не знаю, что означают эти строки</button>
+        </div><div id="warmup-feedback" class="feedback" aria-live="polite" hidden></div>
+      </section>
+      <section class="lesson">
+        <div class="kicker">02　 НОВАЯ ИДЕЯ <span>5 минут</span></div><h2>Когда книг много, нужен порядок</h2>
+        <p>У каждой книги есть название, автор и отметка о прочтении. Если хранить всё в отдельных переменных, их быстро станет трудно держать в порядке.</p>
+        <p><strong>Класс</strong> — описание того, какие данные есть у книги. <strong>Объект</strong> — одна конкретная книга, созданная по этому описанию.</p>
+        <aside class="analogy">▤　Представь библиотечную карточку с полями «название», «автор», «прочитана?». Класс описывает карточку, объект — заполненную карточку конкретной книги.</aside>
+      </section>
+      <section class="lesson">
+        <div class="kicker">03　 СМОТРИМ ПО СТРОКАМ <span>8 минут</span></div><h2>Создаём два отдельных объекта</h2>
+        <p>Здесь есть новые слова. Разберём их по одному — запоминать всё сразу не нужно.</p>
+        <pre class="big-code"><code><b>class</b> Book:
+    <b>def</b> __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self.is_read = <i>False</i>
+
+first_book = Book(<i>"Дюна"</i>, <i>"Фрэнк Герберт"</i>)
+second_book = Book(<i>"Матильда"</i>, <i>"Роальд Даль"</i>)
+
+print(first_book.title)
+print(second_book.title)</code></pre>
+        <ol class="explain">
+          <li><code>class Book</code> говорит Python: «вот описание книги».</li>
+          <li><code>__init__</code> задаёт начальные данные при создании книги.</li>
+          <li><code>self</code> означает «именно эта книга». Поэтому <code>self.title</code> — название конкретной книги.</li>
+          <li>Каждый вызов <code>Book(...)</code> создаёт отдельный объект со своими значениями.</li>
+        </ol>
+        <div class="output"><small>ПРОГРАММА НАПЕЧАТАЕТ</small><code>Дюна<br>Матильда</code></div>
+      </section>
+      <section class="lesson check">
+        <div class="kicker">04　 ПРОВЕРЬ СЕБЯ <span>1 минута</span></div><h2>Предскажи, что произойдёт</h2>
+        <p>Какое значение появится на экране после этих строк?</p>
+        <pre><code>first_book.is_read = <b>True</b>
+print(first_book.is_read)
+print(second_book.is_read)</code></pre>
+        <div class="choices" role="group" aria-label="Предскажи результат">
+          <button data-quiz="correct">True, затем False</button><button data-quiz="try">True, затем True</button><button data-quiz="try">False, затем False</button>
+        </div><div id="quiz-feedback" class="feedback" aria-live="polite" hidden></div>
+      </section>
+      <section id="practice" class="lesson">
+        <div class="kicker">05　 ТВОЯ ОЧЕРЕДЬ <span>10 минут</span></div><h2>Добавь книгу, которую любишь</h2>
+        <p>Открой файл с уроком или свой редактор Python и попробуй:</p>
+        <ol><li>Создать третью книгу по примеру.</li><li>Вывести её название.</li><li>Отметить первую книгу прочитанной и проверить статусы первой и второй.</li></ol>
+        <details><summary>Нужна подсказка?</summary><p>Для новой книги снова вызови <code>Book("название", "автор")</code> и сохрани результат в отдельную переменную. Чтобы изменить статус: <code>имя_книги.is_read = True</code>.</p></details>
+        <details><summary>Показать один вариант решения</summary><pre><code>third_book = Book("Хоббит", "Дж. Р. Р. Толкин")
+print(third_book.title)
+
+first_book.is_read = True
+print(first_book.is_read)   # True
+print(second_book.is_read)  # False</code></pre></details>
+      </section>
+      <section id="recap" class="lesson recap">
+        <div class="kicker">06　 ЗАПОМНИ ГЛАВНОЕ <span>2 минуты</span></div><h2>Три мысли на сегодня</h2>
+        <ul><li><strong>Класс</strong> описывает данные похожих объектов.</li><li><strong>Объект</strong> — один конкретный экземпляр со своими данными.</li><li><strong>self</strong> помогает обратиться к данным именно этого объекта.</li></ul>
+        <p class="soft">Не нужно учить определения наизусть. Достаточно уметь показать класс и две отдельные книги в примере.</p>
+      </section>
+      <p class="guide-link"><a href="../course/LESSON_01.md">Открыть подробный план лекции ↗</a></p>
+      <section class="complete"><div><strong id="complete-title">Урок закончен?</strong><p id="complete-copy">Отметь урок, когда будешь готов. Прогресс сохранится на этом компьютере.</p></div><button id="complete-button">Я прошёл урок　→</button></section>
+      <footer>Ты можешь вернуться к уроку в любой момент.　·　Шаг за шагом.</footer>
+    </main>
+  </div>
+  <dialog id="about-dialog" class="about-dialog">
+    <form method="dialog"><button class="dialog-close" aria-label="Закрыть">×</button></form>
+    <p class="eyebrow">ЗАЧЕМ ЭТОТ КУРС</p>
+    <h2>Учимся ООП шаг за шагом</h2>
+    <p>Это небольшой курс по объектно-ориентированному программированию на Python. Он рассчитан на новичка: новые слова объясняются простыми примерами, а сложность растёт постепенно.</p>
+    <div class="about-facts"><p><strong>Один проект</strong><br>По ходу курса соберём личный список книг и аудиокниг.</p><p><strong>Шесть встреч</strong><br>Три лекции и три практики по часу.</p><p><strong>Работа локально</strong><br>Отметки о прохождении остаются в этом браузере.</p></div>
+    <p class="about-note">В практиках код запускается локально и проверяется на заранее заданных условиях курса.</p>
+  </dialog>
+</body>
+</html>
